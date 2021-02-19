@@ -2,7 +2,7 @@ app:
   version : '@project.version@'
 
 server:
-  port: 8080
+  port: 8086
   servlet:
     context-path: /student
 
