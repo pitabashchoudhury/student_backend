@@ -41,6 +41,10 @@ public class StudentDetails extends AuditEntity {
         this.password=password;
     }
 
+    public StudentDetails(){
+
+    }
+
 
 
 }
