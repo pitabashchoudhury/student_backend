@@ -15,8 +15,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class Swagger2config {
 
-    @Value("${app.version}")
-    private String version;
+    /*@Value("${app.version}")
+    private String version;*/
+
+    //@Value("0.0.1-SNAPSHOT")
+    private String version="0.0.1-SNAPSHOT";
+
 
     @Bean
     public Docket Api() {

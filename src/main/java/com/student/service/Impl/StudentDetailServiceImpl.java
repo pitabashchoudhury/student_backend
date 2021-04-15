@@ -1,5 +1,7 @@
 package com.student.service.Impl;
 
+import com.student.Util.EncryptionUtils;
+import com.student.Util.ErrorMessage;
 import com.student.dto.StudentDetailDTO;
 import com.student.entity.StudentDetails;
 import com.student.entity.converter.StudentDetailsConverter;
@@ -48,6 +50,59 @@ public class StudentDetailServiceImpl implements StudentDetailService {
         List<StudentDetails> studentDetails = studentDetailRepository.findAll();
         return StudentDetailsConverter.getListStudentDetailsDtoFromEntityList(studentDetails);
 
+
+    }
+
+
+
+
+
+
+    @Override
+    public String signIn(String email, String password){
+        String y;
+        String studentId=studentDetailRepository.findByEmail(email);
+        if(studentId!=null)
+
+            return y=checkPassword(studentId,password);
+
+        else {
+            return ErrorMessage.CHECK_YOUR_MAIL;
+
+        }
+
+
+
+
+    }
+
+    String checkPassword(String studentId,String password){
+        System.out.println("entry by id"+studentId);
+        String pass = studentDetailRepository.findByPassword(studentId);
+
+        System.out.println("entry by password "+password);
+        String p= EncryptionUtils.decrypt(pass);
+        System.out.println("entry by pass "+p);
+        if (p.equals(password))
+        {
+
+            return studentId;
+        }
+        else {
+            return ErrorMessage.PASSWORD_CHECK;
+        }
+
+    }
+
+    @Override
+    public List<String> getName(String name){
+
+        List<String> studentDetails = studentDetailRepository.getStudentName(name);
+
+        //StudentDetailsConverter.getListStudentDetailsDtoFromEntityList(studentDetails);
+        System.out.println(studentDetails);
+        //return studentDetails.getFullName();
+        return studentDetails;
 
     }
 }

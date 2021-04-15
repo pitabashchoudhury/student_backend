@@ -1,11 +1,13 @@
 package com.student.controller;
 
 
+import com.student.dto.ResponseDTO;
 import com.student.dto.StudentDetailDTO;
 import com.student.service.StudentDetailService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
@@ -52,6 +54,28 @@ public class StudentController {
         return studentDetailService.getStudent();
 
     }
+
+
+    @ApiOperation(value = "signing in")
+    @PostMapping(path = "signin",produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseDTO signIn (@RequestParam String email,
+                               @RequestParam String password)
+    {
+        String userId= studentDetailService.signIn(email, password);
+
+        return new ResponseDTO(HttpStatus.OK.value(),userId);
+    }
+
+
+
+    @ApiOperation(value ="finding word")
+    @PostMapping(path = "findWord",produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<String> findWord(@RequestParam String sname)
+    {
+        return  studentDetailService.getName(sname);
+
+    }
+
 
 
 
