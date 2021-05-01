@@ -19,7 +19,7 @@ public class Swagger2config {
     private String version;*/
 
     //@Value("0.0.1-SNAPSHOT")
-    private String version="0.0.1-SNAPSHOT";
+    private String version="1.3.0-SNAPSHOT";
 
 
     @Bean

@@ -30,7 +30,7 @@ public class StudentController {
 
     @ApiOperation(value = "creating student")
     @PostMapping(path = "createStudent", produces = { MediaType.APPLICATION_JSON_VALUE })
-    public void createStudent(
+    public ResponseDTO createStudent(
                                         @RequestParam String name,
                                         @RequestParam String email,
                                         @RequestParam String phoneNo,
@@ -43,8 +43,9 @@ public class StudentController {
             dto.setPassword(password);
 
 
-           studentDetailService.createUser(dto);
+           String msg=studentDetailService.createUser(dto);
 
+                return new ResponseDTO(HttpStatus.OK.value(),msg);
     }
 
     @ApiOperation(value = "fetch student")

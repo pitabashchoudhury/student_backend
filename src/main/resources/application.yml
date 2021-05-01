@@ -2,9 +2,10 @@ app:
   version : '@project.version@'
 
 server:
-  port: 8086
+  port: 8096
   servlet:
-    context-path: /student
+   context-path: /student
+
 
 spring:
   datasource:

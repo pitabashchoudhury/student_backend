@@ -2,6 +2,7 @@ package com.student.service.Impl;
 
 import com.student.Util.EncryptionUtils;
 import com.student.Util.ErrorMessage;
+import com.student.Util.SuccessMessage;
 import com.student.dto.StudentDetailDTO;
 import com.student.entity.StudentDetails;
 import com.student.entity.converter.StudentDetailsConverter;
@@ -34,11 +35,11 @@ public class StudentDetailServiceImpl implements StudentDetailService {
         StudentDetailsConverter.getStudentDetailsEntityFromDto(dto,studentDetails);
         studentDetails.setStudentId(UUID.randomUUID().toString());
 
-       // studentDetails.setPassword(EncryptionUtils.encrypt(dto.getPassword()));
+        studentDetails.setPassword(EncryptionUtils.encrypt(dto.getPassword()));
         studentDetails.setCreatedAt(new Date());
         studentDetails.setUpdatedAt(new Date());
         studentDetailRepository.save(studentDetails);
-        return studentDetails.getStudentId();
+        return SuccessMessage.STUDENT_REGISTERED;
 
 
     }
