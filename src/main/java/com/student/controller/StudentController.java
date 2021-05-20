@@ -3,6 +3,7 @@ package com.student.controller;
 
 import com.student.dto.ResponseDTO;
 import com.student.dto.StudentDetailDTO;
+import com.student.dto.StudentDetailsResponseDTO;
 import com.student.service.StudentDetailService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,7 @@ import java.util.List;
 @Validated
 @Slf4j
 @Component
+@CrossOrigin(origins = "*")
 public class StudentController {
 
     @Autowired
@@ -34,7 +36,8 @@ public class StudentController {
                                         @RequestParam String name,
                                         @RequestParam String email,
                                         @RequestParam String phoneNo,
-                                        @RequestParam String password)
+                                        @RequestParam String password
+    )
             {
             StudentDetailDTO dto = new StudentDetailDTO();
             dto.setFullName(name);
@@ -49,8 +52,8 @@ public class StudentController {
     }
 
     @ApiOperation(value = "fetch student")
-    @PostMapping(path = "getStudent", produces = { MediaType.APPLICATION_JSON_VALUE })
-    public List<StudentDetailDTO> getStudent()
+    @GetMapping(path = "getStudent", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public List<StudentDetailsResponseDTO> getStudent()
     {
         return studentDetailService.getStudent();
 

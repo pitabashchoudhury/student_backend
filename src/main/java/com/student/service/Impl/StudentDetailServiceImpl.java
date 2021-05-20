@@ -4,6 +4,7 @@ import com.student.Util.EncryptionUtils;
 import com.student.Util.ErrorMessage;
 import com.student.Util.SuccessMessage;
 import com.student.dto.StudentDetailDTO;
+import com.student.dto.StudentDetailsResponseDTO;
 import com.student.entity.StudentDetails;
 import com.student.entity.converter.StudentDetailsConverter;
 import com.student.repository.StudentDetailRepository;
@@ -46,7 +47,7 @@ public class StudentDetailServiceImpl implements StudentDetailService {
 
 
     @Override
-    public List<StudentDetailDTO> getStudent(){
+    public List<StudentDetailsResponseDTO> getStudent(){
 
         List<StudentDetails> studentDetails = studentDetailRepository.findAll();
         return StudentDetailsConverter.getListStudentDetailsDtoFromEntityList(studentDetails);

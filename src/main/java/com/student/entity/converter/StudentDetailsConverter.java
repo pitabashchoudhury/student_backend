@@ -1,6 +1,7 @@
 package com.student.entity.converter;
 
 import com.student.dto.StudentDetailDTO;
+import com.student.dto.StudentDetailsResponseDTO;
 import com.student.entity.StudentDetails;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
@@ -53,8 +54,8 @@ public class StudentDetailsConverter {
         return mapper;
     }
 
-    public static List<StudentDetailDTO> getListStudentDetailsDtoFromEntityList(List<StudentDetails> studentDetails) {
-        return new ModelMapper().map(studentDetails, new TypeToken<List<StudentDetailDTO>>() {
+    public static List<StudentDetailsResponseDTO> getListStudentDetailsDtoFromEntityList(List<StudentDetails> studentDetails) {
+        return new ModelMapper().map(studentDetails, new TypeToken<List<StudentDetailsResponseDTO>>() {
         }.getType());
     }
 }
