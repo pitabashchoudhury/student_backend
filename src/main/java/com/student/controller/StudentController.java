@@ -1,6 +1,7 @@
 package com.student.controller;
 
 
+import com.student.dto.EmailDTO;
 import com.student.dto.ResponseDTO;
 import com.student.dto.StudentDetailDTO;
 import com.student.dto.StudentDetailsResponseDTO;
@@ -15,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 @RestController
@@ -22,7 +24,7 @@ import java.util.List;
 @Validated
 @Slf4j
 @Component
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 public class StudentController {
 
     @Autowired
@@ -30,15 +32,14 @@ public class StudentController {
 
 
 
-    @ApiOperation(value = "creating student")
+    /*@ApiOperation(value = "creating student")
     @PostMapping(path = "createStudent", produces = { MediaType.APPLICATION_JSON_VALUE })
     public ResponseDTO createStudent(
                                         @RequestParam String name,
                                         @RequestParam String email,
                                         @RequestParam String phoneNo,
                                         @RequestParam String password
-    )
-            {
+    ) throws MessagingException {
             StudentDetailDTO dto = new StudentDetailDTO();
             dto.setFullName(name);
             dto.setEmail(email);
@@ -49,6 +50,19 @@ public class StudentController {
            String msg=studentDetailService.createUser(dto);
 
                 return new ResponseDTO(HttpStatus.OK.value(),msg);
+    }*/
+
+    @ApiOperation(value = "creating student")
+    @PostMapping(path = "createStudent", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public ResponseDTO createStudent(
+            @RequestBody StudentDetailDTO dto
+    ) throws MessagingException {
+
+
+
+        String msg=studentDetailService.createUser(dto);
+
+        return new ResponseDTO(HttpStatus.OK.value(),msg);
     }
 
     @ApiOperation(value = "fetch student")
@@ -66,6 +80,17 @@ public class StudentController {
                                @RequestParam String password)
     {
         String userId= studentDetailService.signIn(email, password);
+
+        return new ResponseDTO(HttpStatus.OK.value(),userId);
+    }
+
+    @ApiOperation(value = "logginging in")
+    @PostMapping(path = "login",produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseDTO logIn (@RequestBody EmailDTO dto)
+    {
+        //String userId= studentDetailService.signIn(email, password);
+
+        String userId=studentDetailService.logIn(dto);
 
         return new ResponseDTO(HttpStatus.OK.value(),userId);
     }
