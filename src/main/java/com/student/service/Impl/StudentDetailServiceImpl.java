@@ -10,8 +10,10 @@ import com.student.dto.StudentDetailsResponseDTO;
 import com.student.entity.StudentDetails;
 import com.student.entity.converter.StudentDetailsConverter;
 import com.student.repository.StudentDetailRepository;
+import com.student.service.KafkaProducerService;
 import com.student.service.StudentDetailService;
 import lombok.extern.slf4j.Slf4j;
+import org.omg.CORBA.UserException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,9 @@ public class StudentDetailServiceImpl implements StudentDetailService {
 
     @Autowired
     private Emailservice emailservice;
+
+    @Autowired
+    private KafkaProducerService kafkaProducerService;
 
 
     @Override
@@ -50,6 +55,12 @@ public class StudentDetailServiceImpl implements StudentDetailService {
         studentDetailRepository.save(studentDetails);
          String s=emailservice.sendMail(dto.getEmail(),"testing","wel come to spring backend");
 
+         try{
+             kafkaProducerService.publishMessage(dto);
+         }catch(UserException e){
+             e.getMessage();
+
+         }
              return SuccessMessage.STUDENT_REGISTERED ;
 
 
